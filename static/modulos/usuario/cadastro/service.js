@@ -24,11 +24,21 @@ angular.module('blognodejs.usuario').factory('usuarios', function(){
         return encontrado;
     };
 
+    var getUsuarioLogado = function() {
+        // Este método JSON.parse, transforma esta string em um objeto
+        return JSON.parse(localStorage.getItem('usuarioLogado'));
+
+    }
+
     var buscar = function(id) {
         var encontrado = getUsuarios().find(function(obj){
             return obj.id === id;
         });
         return encontrado;
+    };
+
+    var sair = function(id) {
+        localStorage.removeItem('getUsuarioLogado');
     };
 
 
@@ -61,7 +71,9 @@ angular.module('blognodejs.usuario').factory('usuarios', function(){
     return{
         cadastrar: cadastrar,
         autenticar: autenticar,
-        buscar: buscar
+        buscar: buscar,
+        getUsuarioLogado: getUsuarioLogado,
+        sair: sair
     }
 
 });

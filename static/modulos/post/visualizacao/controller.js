@@ -1,9 +1,16 @@
-angular.module('blognodejs.post').controller('VisualizacaoPostController', function($scope, $routeParams, posts){
+angular.module('blognodejs.post').controller('VisualizacaoPostController', function($scope, $routeParams, posts, usuarios){
 
-    $scope.carregarPost = function() {
-        var postId = $routeParams.postId;
-        $scope.post =  posts.buscar(postId);
+    var carregarPost = function() {
+        var postId = parseInt($routeParams.postId);
+        return post =  posts.buscar(postId);
     }
+
+    var carregarUsuario = function() {
+        return usuario = usuarios.buscar(parseInt($routeParams.id));
+    }
+
+    $scope.usuario = carregarUsuario();
+    $scope.post = carregarPost();
 
 });
 

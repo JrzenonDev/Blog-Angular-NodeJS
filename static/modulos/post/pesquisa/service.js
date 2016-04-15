@@ -2,7 +2,9 @@ angular.module('blognodejs.post').factory('posts', function(){
 
 
     var registrar = function(post) {
+        var id = getId();
         var novoId = getId() + 1;
+        post.id = novoId;
         setId(novoId);
 
         var posts = getPosts();
@@ -11,10 +13,11 @@ angular.module('blognodejs.post').factory('posts', function(){
         setPosts(posts);
     };
 
-    var buscar = function(id) {
-        var postEncontrado = getPosts().fund(function(post){
-            return post.id = id;
+    var buscar = function(id){
+        var postEncontrado = getPosts().find(function(post){
+            return post.id === id;
         });
+
         return postEncontrado;
     }
 
@@ -27,7 +30,7 @@ angular.module('blognodejs.post').factory('posts', function(){
     }
 
     var getId = function() {
-        var dados = (localStorage.getItem('currentPostId'));
+        var dados = localStorage.getItem('currentPostId');
         if (dados) {
             return parseInt(dados);
         } else {
@@ -36,7 +39,7 @@ angular.module('blognodejs.post').factory('posts', function(){
     }
 
     var getPosts = function() {
-        var dados = (localStorage.getItem('posts'));
+        var dados = localStorage.getItem('posts');
         if (dados) {
             return JSON.parse(dados);
         } else {
