@@ -1,11 +1,12 @@
-angular.module('blognodejs.usuario').controller('LoginController', function($scope, $location, usuarios){
+angular.module('blognodejs.usuario').controller('LoginController', function($rootScope, $scope, $location, usuarios){
 
     $scope.usuario = {};
 
     $scope.entrar = function(usuario){
         var usuarioAutenticado = usuarios.autenticar(usuario);
         if(usuarioAutenticado) {
-            $location.path('usuarios/'+usuarioAutenticado.id+'/posts');
+            console.log("Enviando evento: usuario entrou");
+            $rootScope.$broadcast('usuario.entrou', usuarioAutenticado);
         } else {
             $scope.usuario = {};
             alert('Dados incorretos!');
